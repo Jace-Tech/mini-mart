@@ -1,10 +1,17 @@
-const { handleCreateProduct, handleGetAllProducts } = require('../controllers/productController')
+const { handleCreateProduct, handleGetAllProducts, handleDeleteProduct, handleEditProduct } = require('../controllers/productController')
+const { AdminAutheticate } = require('../middlewares/AdminAuth')
 
 const router = require('express').Router()
 
-
-router.post('/create', handleCreateProduct)
 router.get('/', handleGetAllProducts)
+
+router.post('/create', AdminAutheticate, handleCreateProduct)
+router.delete('/:id', AdminAutheticate, handleDeleteProduct)
+
+router.put('/:id', AdminAutheticate, handleEditProduct)
+router.patch('/:id', AdminAutheticate, handleEditProduct)
+
+
 
 
 module.exports = router
